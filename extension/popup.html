@@ -8,17 +8,28 @@
   <body>
     <div id="brand-logo">Scriptify</div>
     <h1>Add/Edit Custom Scripts</h1>
-    <div id="site-selector">
+    <div id="feature-select">
+      <select id="feature-dropdown">
+        <option value="edit">Edit Website's Current Scripts</option>
+        <option value="add">Add Your Own Script</option>
+        <option value="settings">Settings</option>
+      </select>
+    </div>
+    <div id="site-selector" class="hidden">
       <label for="site-select">Select Website:</label>
       <select id="site-select"></select>
       <button id="edit-script-btn">Edit Script</button>
     </div>
-    <div id="script-editor">
+    <div id="script-editor" class="hidden">
       <textarea id="script-input" rows="10" cols="50" placeholder="Enter your JavaScript code here"></textarea>
       <div id="script-editor-buttons">
         <button id="add-script-btn">Add Script</button>
         <button id="clear-script-btn">Clear Script</button>
       </div>
+    </div>
+    <div id="settings" class="hidden">
+      <h2>Extension Settings</h2>
+      <p>Coming soon...</p>
     </div>
   </body>
 </html>
