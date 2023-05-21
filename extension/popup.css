@@ -1,67 +1,40 @@
 body {
-  background-color: #000;
-  color: orange;
-  font-weight: bold;
-  text-align: center;
-  padding-top: 50px;
-}
-
-h1 {
-  font-size: 30px;
-  text-shadow: 2px 2px #ff4500;
+  font-family: Arial, sans-serif;
+  margin: 20px;
 }
 
 #brand-logo {
-  font-size: 60px;
-  text-shadow: 4px 4px #ff4500;
-  margin-bottom: 30px;
-}
-
-#site-selector {
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+  color: orange;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   margin-bottom: 20px;
 }
 
-#site-select {
-  margin-right: 10px;
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
 }
 
-#edit-script-btn {
-  background-color: orange;
-  color: #000;
-  padding: 5px 10px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+#feature-select {
+  text-align: center;
+  margin-bottom: 20px;
 }
 
-#script-editor {
+#site-selector,
+#script-editor,
+#settings {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 30px;
 }
 
-#script-input {
-  width: 400px;
-  height: 300px;
+#site-selector label,
+#script-editor textarea {
   margin-bottom: 10px;
 }
 
-#script-editor-buttons {
-  display: flex;
-  justify-content: center;
-}
-
-#script-editor-buttons button {
-  background-color: orange;
-  color: #000;
-  padding: 10px 20px;
-  margin: 0 5px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-#script-editor-buttons button:hover {
-  background-color: #ff4500;
+.hidden {
+  display: none;
 }
