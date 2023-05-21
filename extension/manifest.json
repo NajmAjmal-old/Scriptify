@@ -7,7 +7,9 @@
   },
   "permissions": [
     "activeTab",
-    "scripting"
+    "scripting",
+    "storage",
+    "webNavigation"
   ],
   "icons": {
     "512": "logo.png"
