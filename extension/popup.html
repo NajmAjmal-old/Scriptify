@@ -1,15 +1,24 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Scriptify - Add Custom Scripts</title>
+    <title>Scriptify - Add/Edit Custom Scripts</title>
     <link rel="stylesheet" type="text/css" href="popup.css">
     <script src="popup.js"></script>
   </head>
   <body>
     <div id="brand-logo">Scriptify</div>
-    <h1>Add Custom Scripts</h1>
-    <textarea id="script-input" rows="5" cols="50"></textarea>
-    <br />
-    <button id="add-script-btn">Add Script</button>
+    <h1>Add/Edit Custom Scripts</h1>
+    <div id="site-selector">
+      <label for="site-select">Select Website:</label>
+      <select id="site-select"></select>
+      <button id="edit-script-btn">Edit Script</button>
+    </div>
+    <div id="script-editor">
+      <textarea id="script-input" rows="10" cols="50" placeholder="Enter your JavaScript code here"></textarea>
+      <div id="script-editor-buttons">
+        <button id="add-script-btn">Add Script</button>
+        <button id="clear-script-btn">Clear Script</button>
+      </div>
+    </div>
   </body>
 </html>
