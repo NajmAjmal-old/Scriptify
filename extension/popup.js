@@ -1,9 +1,11 @@
 document.addEventListener('DOMContentLoaded', function() {
   var featureDropdown = document.getElementById('feature-dropdown');
   var siteSelector = document.getElementById('site-selector');
+  var addWebsiteSection = document.getElementById('add-website');
   var scriptEditor = document.getElementById('script-editor');
   var siteSelect = document.getElementById('site-select');
   var editScriptBtn = document.getElementById('edit-script-btn');
+  var addWebsiteBtn = document.getElementById('add-website-btn');
   var scriptInput = document.getElementById('script-input');
 
   featureDropdown.addEventListener('change', function() {
@@ -13,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
       showSection(siteSelector);
       populateSiteSelector();
     } else if (selectedFeature === 'add') {
-      showSection(scriptEditor);
+      showSection(addWebsiteSection);
     } else if (selectedFeature === 'settings') {
       showSection(document.getElementById('settings'));
     }
@@ -29,6 +31,19 @@ document.addEventListener('DOMContentLoaded', function() {
     var scriptCode = scriptInput.value;
     saveScript(selectedSite, scriptCode);
     executeScript(selectedSite, scriptCode);
+  });
+
+  addWebsiteBtn.addEventListener('click', function() {
+    var websiteUrl = document.getElementById('website-input').value;
+    if (websiteUrl) {
+      var selectedSite = getHostname(websiteUrl);
+      addWebsiteToSelect(selectedSite);
+      featureDropdown.value = 'edit';
+      hideAllSections();
+      showSection(siteSelector);
+      siteSelect.value = selectedSite;
+      loadSavedScript(selectedSite);
+    }
   });
 
   function hideAllSections() {
@@ -53,11 +68,17 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
+  function addWebsiteToSelect(site) {
+    var option = document.createElement('option');
+    option.value = site;
+    option.textContent = site;
+    siteSelect.appendChild(option);
+  }
+
   function getHostname(url) {
     var hostname = new URL(url).hostname;
     return hostname.startsWith('www.') ? hostname.substring(4) : hostname;
   }
-
 
   function loadSavedScript(site) {
     chrome.storage.sync.get('scripts', function(data) {
