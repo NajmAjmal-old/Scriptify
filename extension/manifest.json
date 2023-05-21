@@ -1,11 +1,15 @@
 {
   "manifest_version": 3,
-  "name": "Scriptify",
+  "name": "Scriptify - Custom Scripts",
   "version": "1.0",
   "action": {
     "default_popup": "popup.html"
   },
   "permissions": [
-    "activeTab"
-  ]
+    "activeTab",
+    "scripting"
+  ],
+  "icons": {
+    "512": "logo.png"
+  }
 }
