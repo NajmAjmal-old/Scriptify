@@ -58,6 +58,7 @@ document.addEventListener('DOMContentLoaded', function() {
     return hostname.startsWith('www.') ? hostname.substring(4) : hostname;
   }
 
+
   function loadSavedScript(site) {
     chrome.storage.sync.get('scripts', function(data) {
       var scripts = data.scripts || {};
