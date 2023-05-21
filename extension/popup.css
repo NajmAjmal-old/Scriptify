@@ -38,3 +38,11 @@ h1 {
 .hidden {
   display: none;
 }
+
+#feature-dropdown {
+  width: 250px;
+  padding: 5px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
