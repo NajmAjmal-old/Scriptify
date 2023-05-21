@@ -83,4 +83,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Listen for message from the popup to create a new script file
 chrome.runtime.onMessage.addListener(function(request) {
-  if
+  if (request.scriptFile && request.scriptCode) {
+    var scriptBlob = new Blob([request.scriptCode], { type: 'text/javascript' });
+    var scriptUrl = URL.createObjectURL(scriptBlob);
+    chrome.scripting.registerContentScript({
+      matches: ["<all_urls>"],
+      js: [{ file: request.scriptFile }],
+      runAt: "document_start"
+    });
+    chrome.downloads.download({
+      url: scriptUrl,
+      filename: request.scriptFile,
+      saveAs: false
+    });
+  }
+});
