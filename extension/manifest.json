@@ -1,17 +1,22 @@
 {
   "manifest_version": 3,
-  "name": "Scriptify - Custom Scripts",
+  "name": "Scriptify",
   "version": "1.0",
+  "description": "Customize and manage JavaScript scripts for specific websites.",
+  "icons": {
+    "512": "logo.png"
+  },
   "action": {
-    "default_popup": "popup.html"
+    "default_popup": "popup.html",
+    "default_icon": {
+      "512": "logo.png"
+    }
   },
   "permissions": [
     "activeTab",
-    "scripting",
     "storage",
+    "scripting",
+    "host_permissions",
     "webNavigation"
-  ],
-  "icons": {
-    "512": "logo.png"
-  }
+  ]
 }
