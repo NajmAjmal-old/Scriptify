@@ -16,7 +16,6 @@
     "activeTab",
     "storage",
     "scripting",
-    "host_permissions",
     "webNavigation"
   ]
 }
