@@ -1,45 +1,40 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" type="text/css" href="light-mode.css" id="stylesheet">
-  <script src="popup.js"></script>
-</head>
-<body>
-  <div class="container">
-    <h1 class="logo">Scriptify</h1>
-    <div class="dark-mode-toggle">
-      <input type="checkbox" id="darkModeToggle" />
-      <label for="darkModeToggle">Dark Mode</label>
-    </div>
-    <div class="feature-dropdown">
-      <select id="featureDropdown">
+  <head>
+    <title>Scriptify - Add/Edit Custom Scripts</title>
+    <link rel="stylesheet" type="text/css" href="popup.css">
+    <script src="popup.js"></script>
+  </head>
+  <body>
+    <div id="brand-logo">Scriptify</div>
+    <h1>Add/Edit Custom Scripts</h1>
+    <div id="feature-select">
+      <select id="feature-dropdown">
         <option value="edit">Edit Website's Current Scripts</option>
         <option value="add">Add Your Own Script</option>
         <option value="settings">Settings</option>
       </select>
     </div>
-    <section id="siteSelector" class="section hidden">
-      <h2>Select Website</h2>
-      <select id="siteSelect"></select>
-    </section>
-    <section id="editScript" class="section hidden">
-      <h2>Edit Website's Current Scripts</h2>
-      <textarea id="scriptInput" rows="10" cols="50"></textarea>
-      <button id="saveScriptButton">Save</button>
-    </section>
-    <section id="addScript" class="section hidden">
-      <h2>Add Your Own Script</h2>
-      <textarea id="customScriptInput" rows="10" cols="50"></textarea>
-      <button id="addScriptButton">Add</button>
-    </section>
-    <section id="settings" class="section hidden">
-      <h2>Settings</h2>
-      <div class="settings-option">
-        <label for="darkModeSetting">Enable Dark Mode:</label>
-        <input type="checkbox" id="darkModeSetting" />
+    <div id="site-selector" class="hidden">
+      <label for="site-select">Select Website:</label>
+      <select id="site-select"></select>
+      <button id="edit-script-btn">Edit Script</button>
+    </div>
+    <div id="add-website" class="hidden">
+      <label for="website-input">Enter Website URL:</label>
+      <input type="text" id="website-input" placeholder="Example: www.example.com">
+      <button id="add-website-btn">Add Website</button>
+    </div>
+    <div id="script-editor" class="hidden">
+      <textarea id="script-input" rows="10" cols="50" placeholder="Enter your JavaScript code here"></textarea>
+      <div id="script-editor-buttons">
+        <button id="add-script-btn">Add Script</button>
+        <button id="clear-script-btn">Clear Script</button>
       </div>
-    </section>
-  </div>
-</body>
+    </div>
+    <div id="settings" class="hidden">
+      <h2>Extension Settings</h2>
+      <p>Coming soon...</p>
+    </div>
+  </body>
 </html>
