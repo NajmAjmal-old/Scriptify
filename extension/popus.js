@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
     hideAllSections();
     if (selectedFeature === 'edit') {
       showSection(siteSelector);
-      loadSavedScripts(siteSelect.value);
+      populateSiteSelector();
     } else if (selectedFeature === 'add') {
       showSection(scriptEditor);
     } else if (selectedFeature === 'settings') {
@@ -20,14 +20,15 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   siteSelect.addEventListener('change', function() {
-    loadSavedScripts(siteSelect.value);
+    var selectedSite = siteSelect.value;
+    loadSavedScript(selectedSite);
   });
 
   editScriptBtn.addEventListener('click', function() {
-    var site = siteSelect.value;
+    var selectedSite = siteSelect.value;
     var scriptCode = scriptInput.value;
-    saveScript(site, scriptCode);
-    chrome.tabs.executeScript({ code: scriptCode });
+    saveScript(selectedSite, scriptCode);
+    executeScript(selectedSite, scriptCode);
   });
 
   function hideAllSections() {
@@ -41,7 +42,23 @@ document.addEventListener('DOMContentLoaded', function() {
     section.classList.remove('hidden');
   }
 
-  function loadSavedScripts(site) {
+  function populateSiteSelector() {
+    chrome.tabs.query({ currentWindow: true, active: true }, function(tabs) {
+      var tab = tabs[0];
+      var selectedSite = getHostname(tab.url);
+      if (selectedSite) {
+        siteSelect.value = selectedSite;
+        loadSavedScript(selectedSite);
+      }
+    });
+  }
+
+  function getHostname(url) {
+    var hostname = new URL(url).hostname;
+    return hostname.startsWith('www.') ? hostname.substring(4) : hostname;
+  }
+
+  function loadSavedScript(site) {
     chrome.storage.sync.get('scripts', function(data) {
       var scripts = data.scripts || {};
       var scriptCode = scripts[site] || '';
@@ -52,4 +69,15 @@ document.addEventListener('DOMContentLoaded', function() {
   function saveScript(site, scriptCode) {
     chrome.storage.sync.get('scripts', function(data) {
       var scripts = data.scripts || {};
-      scripts[site] =
+      scripts[site] = scriptCode;
+      chrome.storage.sync.set({ 'scripts': scripts });
+    });
+  }
+
+  function executeScript(site, scriptCode) {
+    chrome.tabs.query({ currentWindow: true, active: true }, function(tabs) {
+      var tab = tabs[0];
+      chrome.tabs.executeScript(tab.id, { code: scriptCode });
+    });
+  }
+});
