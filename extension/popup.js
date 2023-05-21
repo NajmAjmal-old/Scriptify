@@ -1,15 +1,17 @@
 document.addEventListener('DOMContentLoaded', function() {
-  var featureDropdown = document.getElementById('feature-dropdown');
-  var siteSelector = document.getElementById('site-selector');
-  var addWebsiteSection = document.getElementById('add-website');
-  var scriptEditor = document.getElementById('script-editor');
-  var siteSelect = document.getElementById('site-select');
-  var editScriptBtn = document.getElementById('edit-script-btn');
-  var addWebsiteBtn = document.getElementById('add-website-btn');
-  var scriptInput = document.getElementById('script-input');
+  const featureDropdown = document.getElementById('feature-dropdown');
+  const siteSelector = document.getElementById('site-selector');
+  const addWebsiteSection = document.getElementById('add-website');
+  const scriptEditor = document.getElementById('script-editor');
+  const siteSelect = document.getElementById('site-select');
+  const editScriptBtn = document.getElementById('edit-script-btn');
+  const addWebsiteBtn = document.getElementById('add-website-btn');
+  const scriptInput = document.getElementById('script-input');
+  const darkModeToggle = document.getElementById('darkModeToggle');
+  const stylesheet = document.getElementById('stylesheet');
 
   featureDropdown.addEventListener('change', function() {
-    var selectedFeature = featureDropdown.value;
+    const selectedFeature = featureDropdown.value;
     hideAllSections();
     if (selectedFeature === 'edit') {
       showSection(siteSelector);
@@ -22,21 +24,21 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   siteSelect.addEventListener('change', function() {
-    var selectedSite = siteSelect.value;
+    const selectedSite = siteSelect.value;
     loadSavedScript(selectedSite);
   });
 
   editScriptBtn.addEventListener('click', function() {
-    var selectedSite = siteSelect.value;
-    var scriptCode = scriptInput.value;
+    const selectedSite = siteSelect.value;
+    const scriptCode = scriptInput.value;
     saveScript(selectedSite, scriptCode);
     executeScript(selectedSite, scriptCode);
   });
 
   addWebsiteBtn.addEventListener('click', function() {
-    var websiteUrl = document.getElementById('website-input').value;
+    const websiteUrl = document.getElementById('website-input').value;
     if (websiteUrl) {
-      var selectedSite = getHostname(websiteUrl);
+      const selectedSite = getHostname(websiteUrl);
       addWebsiteToSelect(selectedSite);
       featureDropdown.value = 'edit';
       hideAllSections();
@@ -46,8 +48,16 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
+  darkModeToggle.addEventListener('change', function() {
+    if (darkModeToggle.checked) {
+      stylesheet.href = 'dark-mode.css';
+    } else {
+      stylesheet.href = 'light-mode.css';
+    }
+  });
+
   function hideAllSections() {
-    var sections = document.querySelectorAll('.section');
+    const sections = document.querySelectorAll('.section');
     sections.forEach(function(section) {
       section.classList.add('hidden');
     });
@@ -59,8 +69,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
   function populateSiteSelector() {
     chrome.tabs.query({ currentWindow: true, active: true }, function(tabs) {
-      var tab = tabs[0];
-      var selectedSite = getHostname(tab.url);
+      const tab = tabs[0];
+      const selectedSite = getHostname(tab.url);
       if (selectedSite) {
         siteSelect.value = selectedSite;
         loadSavedScript(selectedSite);
@@ -69,28 +79,28 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function addWebsiteToSelect(site) {
-    var option = document.createElement('option');
+    const option = document.createElement('option');
     option.value = site;
     option.textContent = site;
     siteSelect.appendChild(option);
   }
 
   function getHostname(url) {
-    var hostname = new URL(url).hostname;
+    const hostname = new URL(url).hostname;
     return hostname.startsWith('www.') ? hostname.substring(4) : hostname;
   }
 
   function loadSavedScript(site) {
     chrome.storage.sync.get('scripts', function(data) {
-      var scripts = data.scripts || {};
-      var scriptCode = scripts[site] || '';
+      const scripts = data.scripts || {};
+      const scriptCode = scripts[site] || '';
       scriptInput.value = scriptCode;
     });
   }
 
   function saveScript(site, scriptCode) {
     chrome.storage.sync.get('scripts', function(data) {
-      var scripts = data.scripts || {};
+      const scripts = data.scripts || {};
       scripts[site] = scriptCode;
       chrome.storage.sync.set({ 'scripts': scripts });
     });
@@ -98,7 +108,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   function executeScript(site, scriptCode) {
     chrome.tabs.query({ currentWindow: true, active: true }, function(tabs) {
-      var tab = tabs[0];
+      const tab = tabs[0];
       chrome.tabs.executeScript(tab.id, { code: scriptCode });
     });
   }
