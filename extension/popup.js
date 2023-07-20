@@ -27,12 +27,20 @@ document.addEventListener('DOMContentLoaded', function () {
       alert('Custom CSS and JS applied successfully!');
     });
 
-    // Inject custom CSS and JS as content scripts
+    // Inject custom CSS as a content script
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+      chrome.scripting.insertCSS({
+        target: { tabId: tabs[0].id },
+        css: customCSS,
+      });
+    });
+
+    // Inject custom JS as a content script
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
       chrome.scripting.executeScript({
         target: { tabId: tabs[0].id },
         func: injectCustomCode,
-        args: [customCSS, customJS],
+        args: [null, customJS],
       });
     });
   });
