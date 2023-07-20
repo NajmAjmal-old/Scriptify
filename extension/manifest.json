@@ -4,7 +4,7 @@
   "version": "1.0",
   "description": "Add custom CSS and JavaScript to websites.",
   "icons": {
-    "48": "icon.png"
+    "48": "logo.png"
   },
   "action": {
     "default_popup": "popup.html"
