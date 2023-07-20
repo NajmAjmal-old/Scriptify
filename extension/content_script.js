@@ -1,16 +1,32 @@
-chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
-  if (message.css) {
+// Function to inject custom CSS and JS
+function injectCustomCode(css, js) {
+  if (css) {
     const style = document.createElement('style');
-    style.textContent = message.css;
+    style.textContent = css;
     document.head.appendChild(style);
   }
 
-  if (message.js) {
+  if (js) {
     const script = document.createElement('script');
-    script.textContent = message.js;
+    script.textContent = js;
     document.head.appendChild(script);
+  }
+}
+
+// Load custom JS from local storage and inject it on page load
+chrome.storage.local.get(['customJS'], function (result) {
+  const customJS = result.customJS;
+  if (customJS) {
+    injectCustomCode(null, customJS);
   }
 });
 
-// Send a message to the background script when the content script is injected.
-chrome.runtime.sendMessage({ contentScriptLoaded: true });
+// Listen for messages from the background script to apply custom CSS and JS
+chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
+  if (message.css || message.js) {
+    injectCustomCode(message.css, message.js);
+
+    // Save custom JS to local storage
+    chrome.storage.local.set({ customJS: message.js });
+  }
+});
