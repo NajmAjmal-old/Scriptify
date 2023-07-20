@@ -1,0 +1,50 @@
+/* Apply the orange theme to the body background */
+body {
+  background-color: #FFA500;
+}
+
+/* Apply orange text color to headings */
+h1, h2, h3, h4, h5, h6 {
+  color: #FFA500;
+}
+
+/* Style buttons with an orange background and white text */
+button {
+  background-color: #FFA500;
+  color: #ffffff;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+/* Style text areas with an orange border */
+textarea {
+  border: 2px solid #FFA500;
+  border-radius: 5px;
+  padding: 5px;
+  resize: vertical;
+}
+
+/* Style the popup header with an orange background and white text */
+h2 {
+  background-color: #FFA500;
+  color: #ffffff;
+  padding: 10px;
+  margin: 0;
+}
+
+/* Apply orange text color to labels */
+label {
+  color: #FFA500;
+}
+
+/* Override default link color to use orange */
+a {
+  color: #FFA500;
+}
+
+/* Override default link color on hover to use dark orange */
+a:hover {
+  color: #FF8C00;
+}
