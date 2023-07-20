@@ -6,11 +6,13 @@ document.addEventListener('DOMContentLoaded', function () {
   const resetJSButton = document.getElementById('resetJS');
   const clearButton = document.getElementById('clearButton');
 
-  // Load previously saved custom JS from local storage
-  chrome.storage.local.get(['customJS'], function (result) {
-    const savedJS = result.customJS;
-    if (savedJS) {
-      customJSInput.value = savedJS;
+  // Load previously saved custom CSS and JS from storage
+  chrome.storage.sync.get(['customCSS', 'customJS'], function (result) {
+    if (result.customCSS) {
+      customCSSInput.value = result.customCSS;
+    }
+    if (result.customJS) {
+      customJSInput.value = result.customJS;
     }
   });
 
@@ -18,12 +20,20 @@ document.addEventListener('DOMContentLoaded', function () {
     const customCSS = customCSSInput.value;
     const customJS = customJSInput.value;
 
-    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-      chrome.tabs.sendMessage(tabs[0].id, { css: customCSS, js: customJS });
+    // Save custom CSS and JS to storage
+    chrome.storage.sync.set({ customCSS, customJS }, function () {
+      // Inform the user that the changes are applied
+      alert('Custom CSS and JS applied successfully!');
     });
 
-    // Save custom JS to local storage
-    chrome.storage.local.set({ customJS: customJS });
+    // Inject custom CSS and JS as content scripts
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+      chrome.scripting.executeScript({
+        target: { tabId: tabs[0].id },
+        func: injectCustomCode,
+        args: [customCSS, customJS],
+      });
+    });
   });
 
   resetCSSButton.addEventListener('click', function () {
@@ -37,5 +47,8 @@ document.addEventListener('DOMContentLoaded', function () {
   clearButton.addEventListener('click', function () {
     customCSSInput.value = '';
     customJSInput.value = '';
+
+    // Clear custom CSS and JS from storage
+    chrome.storage.sync.clear();
   });
 });
