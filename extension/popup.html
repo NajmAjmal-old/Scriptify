@@ -5,12 +5,32 @@
   <link rel="stylesheet" type="text/css" href="theme.css">
 </head>
 <body>
-  <h2>Add Custom CSS and JavaScript</h2>
-  <label for="customCSS">Custom CSS:</label>
-  <textarea id="customCSS" rows="8" cols="40"></textarea>
-  <label for="customJS">Custom JavaScript:</label>
-  <textarea id="customJS" rows="8" cols="40"></textarea>
-  <button id="applyButton">Apply</button>
+  <h2>Scriptify - Custom CSS and JavaScript</h2>
+  <div class="container">
+    <div class="label-container">
+      <label for="customCSS">Custom CSS:</label>
+      <button class="reset-btn" id="resetCSS">Reset</button>
+    </div>
+    <div class="textarea-container">
+      <textarea id="customCSS" rows="8" cols="40"></textarea>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="label-container">
+      <label for="customJS">Custom JavaScript:</label>
+      <button class="reset-btn" id="resetJS">Reset</button>
+    </div>
+    <div class="textarea-container">
+      <textarea id="customJS" rows="8" cols="40"></textarea>
+    </div>
+  </div>
+
+  <div>
+    <button id="applyButton">Apply</button>
+    <button id="clearButton">Clear All</button>
+  </div>
+
   <script src="popup.js"></script>
 </body>
 </html>
