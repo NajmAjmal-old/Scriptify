@@ -48,3 +48,21 @@ a {
 a:hover {
   color: #FF8C00;
 }
+
+/* Style buttons with an orange background and white text */
+button {
+  background-color: #FFA500;
+  color: #ffffff;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+/* Apply the hover effect - white background on hover */
+button:hover {
+  background-color: #ffffff;
+  color: #FFA500;
+}
+
