@@ -13,8 +13,8 @@ function injectCustomCode(css, js) {
   }
 }
 
-// Load custom JS from local storage and inject it on page load
-chrome.storage.local.get(['customJS'], function (result) {
+// Load custom JS from storage and inject it on page load
+chrome.storage.sync.get('customJS', function (result) {
   const customJS = result.customJS;
   if (customJS) {
     injectCustomCode(null, customJS);
@@ -26,7 +26,7 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
   if (message.css || message.js) {
     injectCustomCode(message.css, message.js);
 
-    // Save custom JS to local storage
-    chrome.storage.local.set({ customJS: message.js });
+    // Save custom JS to storage
+    chrome.storage.sync.set({ customJS: message.js });
   }
 });
