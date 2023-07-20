@@ -1,5 +1,9 @@
 /* Apply the orange theme to the body background */
 body {
+  max-width: 300px;
+  margin: 20px auto;
+  font-family: Arial, sans-serif;
+  color: #333;
   background-color: #FFA500;
 }
 
@@ -54,4 +58,39 @@ a {
 /* Override default link color on hover to use dark orange */
 a:hover {
   color: #FF8C00;
+}
+
+/* Additional styling for improved UI */
+.container {
+  margin-bottom: 15px;
+}
+
+.label-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.label-container label {
+  flex: 1;
+}
+
+.textarea-container {
+  position: relative;
+}
+
+.reset-btn {
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  background-color: #ccc;
+  border: none;
+  padding: 2px 5px;
+  border-radius: 3px;
+  font-size: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.reset-btn:hover {
+  background-color: #999;
 }
