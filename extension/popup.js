@@ -6,13 +6,14 @@ document.addEventListener('DOMContentLoaded', function () {
   const resetJSButton = document.getElementById('resetJS');
   const clearButton = document.getElementById('clearButton');
 
-  // Load previously saved custom CSS and JS from storage
-  chrome.storage.sync.get(['customCSS', 'customJS'], function (result) {
-    if (result.customCSS) {
-      customCSSInput.value = result.customCSS;
+  // Load previously saved custom CSS and JS from background script
+  chrome.runtime.sendMessage({ action: 'loadCustomCode' }, function (response) {
+    const { customCSS, customJS } = response;
+    if (customCSS) {
+      customCSSInput.value = customCSS;
     }
-    if (result.customJS) {
-      customJSInput.value = result.customJS;
+    if (customJS) {
+      customJSInput.value = customJS;
     }
   });
 
@@ -20,8 +21,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const customCSS = customCSSInput.value;
     const customJS = customJSInput.value;
 
-    // Save custom CSS and JS to storage
-    chrome.storage.sync.set({ customCSS, customJS }, function () {
+    // Save custom CSS and JS to background script
+    chrome.runtime.sendMessage({ action: 'saveCustomCode', customCSS, customJS }, function (response) {
       // Inform the user that the changes are applied
       alert('Custom CSS and JS applied successfully!');
     });
@@ -48,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function () {
     customCSSInput.value = '';
     customJSInput.value = '';
 
-    // Clear custom CSS and JS from storage
-    chrome.storage.sync.clear();
+    // Clear custom CSS and JS in background script
+    chrome.runtime.sendMessage({ action: 'saveCustomCode', customCSS: '', customJS: '' });
   });
 });
