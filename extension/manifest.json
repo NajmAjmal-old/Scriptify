@@ -2,20 +2,21 @@
   "manifest_version": 3,
   "name": "Scriptify",
   "version": "1.0",
-  "description": "Customize and manage JavaScript scripts for specific websites.",
+  "description": "Add custom CSS and JavaScript to websites.",
   "icons": {
-    "512": "logo.png"
+    "48": "icon.png"
   },
   "action": {
-    "default_popup": "popup.html",
-    "default_icon": {
-      "512": "logo.png"
-    }
+    "default_popup": "popup.html"
   },
-  "permissions": [
-    "activeTab",
-    "storage",
-    "scripting",
-    "webNavigation"
-  ]
+  "permissions": ["activeTab"],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html"
+  }
 }
